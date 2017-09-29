@@ -22,5 +22,13 @@ namespace WebApplication1.Models
             this.DeviseName = deviseName;
             this.Taux = taux;
         }
+
+        public override bool Equals(Object obj)
+        {
+            // Performs an equality check on two points (integer pairs).
+            if (obj == null || GetType() != obj.GetType()) return false;
+            Devise d = (Devise)obj;
+            return (Taux == d.Taux) && (Id == d.Id) && (DeviseName == d.DeviseName);
+        }
     }
 }

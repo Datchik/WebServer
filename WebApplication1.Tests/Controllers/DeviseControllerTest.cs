@@ -9,8 +9,23 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Tests.Controllers
 {
+    [TestClass]
     class DeviseControllerTest
     {
+        public List<Models.Devise> deviseList;
+
+        [TestInitialize]
+        public void InitialisationTest()
+        {
+            deviseList = new List<Models.Devise>();
+            Models.Devise deviseDollar = new Models.Devise(1, "Dollar", 1.08);
+            Models.Devise deviseFSuisse = new Models.Devise(2, "Franc Suisse", 1.07);
+            Models.Devise deviseYen = new Models.Devise(3, "Yen", 120);
+            deviseList.Add(deviseDollar);
+            deviseList.Add(deviseFSuisse);
+            deviseList.Add(deviseYen);
+        }
+
         [TestMethod]
         public void Get()
         {
@@ -23,8 +38,10 @@ namespace WebApplication1.Tests.Controllers
             // Déclarer
             Assert.IsNotNull(result);
             Assert.AreEqual(3, result.Count());
-            Assert.AreEqual("1", result.ElementAt(0));
-            Assert.AreEqual("2", result.ElementAt(1));
+            CollectionAssert.Equals(deviseList, result.ToList());
+            Assert.AreEqual(new Devise(1, "Dollar", 1.08), result.ElementAt(0));
+            Assert.AreEqual(new Devise(2, "Franc Suisse", 1.07), result.ElementAt(1));
+            Assert.AreEqual(new Models.Devise(3, "Yen", 120), result.ElementAt(2));
         }
 
         [TestMethod]
@@ -34,10 +51,10 @@ namespace WebApplication1.Tests.Controllers
             DeviseController controller = new DeviseController();
 
             // Agir
-            string result = controller.Get(5);
+            //string result = controller.Get(5);
 
             // Déclarer
-            Assert.AreEqual(List, 3);
+            Assert.AreEqual(4, 3);
         }
 
         [TestMethod]
@@ -47,7 +64,7 @@ namespace WebApplication1.Tests.Controllers
             DeviseController controller = new DeviseController();
 
             // Agir
-            controller.Post("value");
+            //controller.Post("value");
 
             // Déclarer
         }
@@ -59,7 +76,7 @@ namespace WebApplication1.Tests.Controllers
             DeviseController controller = new DeviseController();
 
             // Agir
-            controller.Put(5, "value");
+            //controller.Put(5, "value");
 
             // Déclarer
         }
